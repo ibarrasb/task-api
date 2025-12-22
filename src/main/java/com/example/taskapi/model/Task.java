@@ -1,6 +1,8 @@
 package com.example.taskapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+
 import java.time.Instant;
 import java.util.UUID;
 
@@ -9,7 +11,8 @@ import java.util.UUID;
 public class Task {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UUID id;
 
     @Column(nullable = false)
@@ -20,10 +23,15 @@ public class Task {
     private boolean completed = false;
 
     @Column(name = "created_at", nullable = false, updatable = false)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Instant createdAt;
 
     @Column(name = "updated_at")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Instant updatedAt;
+
+    // Required by JPA
+    public Task() {}
 
     @PrePersist
     protected void onCreate() {
@@ -36,6 +44,41 @@ public class Task {
         this.updatedAt = Instant.now();
     }
 
-    // getters and setters
-    
+    // -------- GETTERS & SETTERS --------
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
 }
