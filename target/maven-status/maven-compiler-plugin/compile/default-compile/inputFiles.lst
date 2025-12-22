@@ -1,0 +1,6 @@
+/Users/eddieibarra/Desktop/task-api/src/main/java/com/example/taskapi/TaskApiApplication.java
+/Users/eddieibarra/Desktop/task-api/src/main/java/com/example/taskapi/controller/TaskController.java
+/Users/eddieibarra/Desktop/task-api/src/main/java/com/example/taskapi/model/Task.java
+/Users/eddieibarra/Desktop/task-api/src/main/java/com/example/taskapi/repository/TaskRepository.java
+/Users/eddieibarra/Desktop/task-api/src/main/java/com/example/taskapi/security/SecurityConfig.java
+/Users/eddieibarra/Desktop/task-api/src/main/java/com/example/taskapi/service/TaskService.java
