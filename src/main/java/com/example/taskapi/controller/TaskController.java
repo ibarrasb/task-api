@@ -5,6 +5,7 @@ import com.example.taskapi.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/tasks")
@@ -24,5 +25,18 @@ public class TaskController {
     @PostMapping
     public Task createTask(@RequestBody Task task) {
         return taskService.createTask(task);
+    }
+
+    @PutMapping("/{id}")
+    public Task updateTask(
+        @PathVariable UUID id,
+        @RequestBody Task task
+    ) {
+        return taskService.updateTask(id, task);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTask(@PathVariable UUID id) {
+        taskService.deleteTask(id);
     }
 }
