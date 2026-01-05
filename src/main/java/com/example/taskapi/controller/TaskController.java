@@ -29,10 +29,10 @@ public class TaskController {
         return taskService.createTask(task);
     }
 
-@PutMapping("/api/tasks/{id}")
-public Task updateTask(@PathVariable UUID id, @RequestBody UpdateTaskRequest req) {
-    return taskService.updateTask(id, req);
-}
+    @PutMapping("/{id}")
+    public Task updateTask(@PathVariable UUID id, @RequestBody UpdateTaskRequest req) {
+        return taskService.updateTask(id, req);
+    }
 
 
     @DeleteMapping("/{id}")
