@@ -1,8 +1,12 @@
 package com.example.taskapi.service;
 
+import com.example.taskapi.dto.UpdateTaskRequest;
 import com.example.taskapi.model.Task;
 import com.example.taskapi.repository.TaskRepository;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,16 +28,17 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public Task updateTask(UUID id, Task updatedTask) {
-        Task existingTask = taskRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Task not found"));
+ public Task updateTask(UUID id, UpdateTaskRequest req) {
+    Task existing = taskRepository.findById(id)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found"));
 
-        existingTask.setTitle(updatedTask.getTitle());
-        existingTask.setDescription(updatedTask.getDescription());
-        existingTask.setCompleted(updatedTask.isCompleted());
-
-        return taskRepository.save(existingTask);
+    if (req.completed() != null) {
+        existing.setCompleted(req.completed());
     }
+
+    return taskRepository.save(existing);
+}
+
 
     public void deleteTask(UUID id) {
         if (!taskRepository.existsById(id)) {

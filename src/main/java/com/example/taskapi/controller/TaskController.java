@@ -1,5 +1,6 @@
 package com.example.taskapi.controller;
 
+import com.example.taskapi.dto.UpdateTaskRequest;
 import com.example.taskapi.model.Task;
 import com.example.taskapi.service.TaskService;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +29,11 @@ public class TaskController {
         return taskService.createTask(task);
     }
 
-    @PutMapping("/{id}")
-    public Task updateTask(
-        @PathVariable UUID id,
-        @RequestBody Task task
-    ) {
-        return taskService.updateTask(id, task);
-    }
+@PutMapping("/api/tasks/{id}")
+public Task updateTask(@PathVariable UUID id, @RequestBody UpdateTaskRequest req) {
+    return taskService.updateTask(id, req);
+}
+
 
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable UUID id) {
